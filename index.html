@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CT Tech Surprise</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            font-family: 'Courier New', monospace;
+        }
+        .modal {
+            background: #ffeb3b; /* Yellow like your CT logo */
+            border: 3px solid #00ff00; /* Neon green border for quirkiness */
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 0 10px #00ff00;
+            border-radius: 10px;
+            max-width: 300px;
+            position: relative;
+        }
+        .modal h1 {
+            font-size: 1.5em;
+            color: #000;
+            text-transform: uppercase;
+        }
+        .modal p {
+            font-size: 1em;
+            color: #000;
+        }
+        .modal button {
+            background: #000;
+            color: #ffeb3b;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            margin-top: 10px;
+        }
+        .modal img {
+            width: 50px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="modal" id="popup">
+        <img src="ct-robot-logo.png" alt="CT Robot Head"> <!-- Replace with your logo URL -->
+        <h1>Tech Trick Unlocked!</h1>
+        <p>Hey there, tech explorer! You’ve tapped into the Bleeding Edge. Here’s my info—don’t lose it!</p>
+        <button onclick="window.location.href='tel:+1234567890'">Call Me</button>
+        <button onclick="window.location.href='mailto:contact@ct-tech.com'">Email Me</button>
+    </div>
+</body>
+</html>
