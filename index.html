@@ -11,46 +11,80 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #000;
+            background: #0a0a0a; /* Deep black cyberpunk background */
             font-family: 'Courier New', monospace;
-            color: #00ff00;
+            color: #00ff00; /* Classic green terminal text */
+            overflow: hidden;
         }
         .modal {
-            background: #ffeb3b; /* Yellow like your CT logo */
-            border: 3px solid #00ff00; /* Neon green border */
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 0 10px #00ff00;
-            border-radius: 10px;
-            max-width: 300px;
+            background: #1a1a2e; /* Dark base with a purple tint */
+            border: 2px solid #00d4ff;
+            padding: 30px 20px;
+            text-align: left;
+            border-radius: 15px;
+            max-width: 350px;
+            min-height: 400px;
             position: relative;
-            display: none; /* Hidden until "hacking" is done */
+            display: none;
+            box-shadow: 0 0 25px #00d4ff;
         }
         .modal h1 {
-            font-size: 1.5em;
-            color: #000;
+            font-size: 1.2em;
+            font-weight: 300;
+            color: #ff00ff; /* Neon pink for title */
             text-transform: uppercase;
+            animation: glitch 1s linear infinite;
+            margin: 10px 0 20px 0;
+            letter-spacing: 1px;
+        }
+        @keyframes glitch {
+            2%, 64% {
+                transform: translate(2px, 0) skew(0deg);
+            }
+            4%, 60% {
+                transform: translate(-2px, 0) skew(0deg);
+            }
+            62% {
+                transform: translate(0, 0) skew(5deg);
+            }
         }
         .modal p {
             font-size: 1em;
-            color: #000;
+            color: #00d4ff; /* Neon blue for text */
+            margin: 20px 0;
+            clear: both;
         }
         .modal button {
-            background: #000;
-            color: #ffeb3b;
-            border: none;
-            padding: 10px 20px;
+            background: #4b0082; /* Dark purple button base */
+            color: #ff00ff; /* Neon pink text */
+            border: 2px solid #00d4ff; /* Neon blue border */
+            padding: 12px 25px;
             cursor: pointer;
             font-family: 'Courier New', monospace;
-            margin-top: 10px;
-            transition: transform 0.1s;
+            margin: 8px 5px;
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+            display: block;
+            width: calc(100% - 10px);
+            text-align: center;
         }
         .modal button:hover {
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(2deg);
+            box-shadow: 0 0 10px #00d4ff, 0 0 20px #ff00ff;
         }
-        .modal img {
-            width: 50px;
-            margin-bottom: 10px;
+
+        #ct-robot {
+            width: 80px;
+            height: auto;
+            margin-bottom: 15px;
+            float: left;
+            margin-right: 15px;
+            margin-top: -5px;
+        }
+        #ct-robot svg {
+            width: 100%;
+            height: auto;
         }
         #hacking-screen {
             position: absolute;
@@ -65,20 +99,27 @@
             align-items: center;
             flex-direction: column;
             font-size: 1.2em;
+            animation: static 0.1s infinite;
+        }
+        @keyframes static {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
         }
         #hacking-text {
             white-space: pre-wrap;
             text-align: center;
+            text-shadow: 0 0 5px #00ff00;
         }
         @keyframes wiggle {
             0% { transform: rotate(0deg); }
-            25% { transform: rotate(-5deg); }
-            50% { transform: rotate(5deg); }
-            75% { transform: rotate(-5deg); }
+            25% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+            75% { transform: rotate(-3deg); }
             100% { transform: rotate(0deg); }
         }
         .wiggle {
-            animation: wiggle 0.5s infinite;
+            animation: wiggle 0.3s ease-in-out 3;
         }
     </style>
 </head>
@@ -87,15 +128,18 @@
         <div id="hacking-text">Accessing Mainframe...</div>
     </div>
     <div class="modal" id="popup">
-        <img src="ct-robot-logo.png" alt="CT Robot Head" id="ct-robot">
+        <div id="ct-robot"></div>
         <h1>Cyphers Technologies</h1>
         <p>Don't just tap and run! We can have so much fun...</p>
-        <button onmouseover="this.innerText='Call Me... Maybe?'; this.classList.add('wiggle')"
+        <button onmouseover="this.innerText='Call Me... Maybe?'; wiggleButton(this)"
                 onmouseout="this.innerText='Call Me'"
-                onclick="window.location.href='tel:+1234567890'">Call Me</button>
-        <button onmouseover="this.innerText='Email Me... Or Not!'; this.classList.add('wiggle')"
+                onclick="window.location.href='tel:+12532284434'">Call Me</button>
+        <button onmouseover="this.innerText='Email Me... Or Not!'; wiggleButton(this)"
                 onmouseout="this.innerText='Email Me'"
-                onclick="window.location.href='mailto:contact@ct-tech.com'">Email Me</button>
+                onclick="window.location.href='mailto:dennis@cypherstechnologies.com'">Email Me</button>
+        <button onmouseover="this.innerText='Add My Contact!'; wiggleButton(this)"
+                onmouseout="this.innerText='Save Contact'"
+                onclick="downloadVCard()">Save Contact</button>
     </div>
 
     <audio id="laugh" src="https://freesound.org/data/previews/316/316908_4939433-lq.mp3"></audio>
@@ -105,6 +149,82 @@
         const hackingScreen = document.getElementById('hacking-screen');
         const popup = document.getElementById('popup');
         const laugh = document.getElementById('laugh');
+        const ctRobot = document.getElementById('ct-robot');
+
+        // SVG templates
+        const smilingSVG = `
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 116.2 88.3" style="enable-background:new 0 0 116.2 88.3;" xml:space="preserve">
+            <defs>
+                <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="0" y1="44.1618" x2="116.244" y2="44.1618">
+                    <stop offset="0" style="stop-color:#FFF33B"/>
+                    <stop offset="7.605071e-02" style="stop-color:#FFE029"/>
+                    <stop offset="0.1665" style="stop-color:#FFD217"/>
+                    <stop offset="0.2598" style="stop-color:#FEC90E"/>
+                    <stop offset="0.3591" style="stop-color:#FDC70C"/>
+                    <stop offset="0.6685" style="stop-color:#F1EA2E"/>
+                    <stop offset="0.8206" style="stop-color:#FFF465"/>
+                    <stop offset="0.9516" style="stop-color:#E4E417"/>
+                </linearGradient>
+                <linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="45.5221" y1="17" x2="49.7351" y2="17">
+                    <stop offset="0" style="stop-color:#FFF33B"/>
+                    <stop offset="7.605071e-02" style="stop-color:#FFE029"/>
+                    <stop offset="0.1665" style="stop-color:#FFD217"/>
+                    <stop offset="0.2598" style="stop-color:#FEC90E"/>
+                    <stop offset="0.3591" style="stop-color:#FDC70C"/>
+                    <stop offset="0.6685" style="stop-color:#F1EA2E"/>
+                    <stop offset="0.8206" style="stop-color:#FFF465"/>
+                    <stop offset="0.9516" style="stop-color:#E4E417"/>
+                </linearGradient>
+            </defs>
+            <g id="Logo">
+                <polygon fill="url(#SVGID_1_)" points="116.2,67 98.5,50 92.5,50 92.5,17 102.6,17 116.2,17 116.2,0 103,0 81,0 68.7,0 68.6,0 49.7,17 68.6,17 75.5,17 75.5,50 39,50 17,50 17,17 26.8,17 44.1,17 63,0 26.5,0 17,0 0,17 0,50 17,67 39,67 75.5,67 75.5,71.8 92.5,88.3 92.5,67"/>
+                <line fill="url(#SVGID_2_)" stroke="#F4EA1B" stroke-width="0" stroke-linecap="round" stroke-linejoin="round" x1="45.5" y1="17" x2="49.7" y2="17"/>
+            </g>
+            <g id="Face">
+                <path fill="#F8EC0B" d="M44.5,34.4l9.1,0c0,0,0,0,0,0c0,5-4.1,9.1-9.1,9.1s-9.1-4.1-9.1-9.1H44.5z"/>
+                <rect x="51.4" y="25.7" fill="#F8EC0B" width="13.8" height="3.4"/>
+                <rect x="23.9" y="25.7" fill="#F8EC0B" width="13.8" height="3.4"/>
+            </g>
+            </svg>
+        `;
+
+        const winkingSVG = `
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 viewBox="0 0 116.2 88.3" style="enable-background:new 0 0 116.2 88.3;" xml:space="preserve">
+            <defs>
+                <linearGradient id="SVGID_1_wink" gradientUnits="userSpaceOnUse" x1="0" y1="44.1618" x2="116.244" y2="44.1618">
+                    <stop offset="0" style="stop-color:#FFF33B"/>
+                    <stop offset="7.605071e-02" style="stop-color:#FFE029"/>
+                    <stop offset="0.1665" style="stop-color:#FFD217"/>
+                    <stop offset="0.2598" style="stop-color:#FEC90E"/>
+                    <stop offset="0.3591" style="stop-color:#FDC70C"/>
+                    <stop offset="0.6685" style="stop-color:#F1EA2E"/>
+                    <stop offset="0.8206" style="stop-color:#FFF465"/>
+                    <stop offset="0.9516" style="stop-color:#E4E417"/>
+                </linearGradient>
+                <linearGradient id="SVGID_2_wink" gradientUnits="userSpaceOnUse" x1="45.5221" y1="17" x2="49.7351" y2="17">
+                    <stop offset="0" style="stop-color:#FFF33B"/>
+                    <stop offset="7.605071e-02" style="stop-color:#FFE029"/>
+                    <stop offset="0.1665" style="stop-color:#FFD217"/>
+                    <stop offset="0.2598" style="stop-color:#FEC90E"/>
+                    <stop offset="0.3591" style="stop-color:#FDC70C"/>
+                    <stop offset="0.6685" style="stop-color:#F1EA2E"/>
+                    <stop offset="0.8206" style="stop-color:#FFF465"/>
+                    <stop offset="0.9516" style="stop-color:#E4E417"/>
+                </linearGradient>
+            </defs>
+            <g id="Logo">
+                <polygon fill="url(#SVGID_1_wink)" points="116.2,67 98.5,50 92.5,50 92.5,17 102.6,17 116.2,17 116.2,0 103,0 81,0 68.7,0 68.6,0 49.7,17 68.6,17 75.5,17 75.5,50 39,50 17,50 17,17 26.8,17 44.1,17 63,0 26.5,0 17,0 0,17 0,50 17,67 39,67 75.5,67 75.5,71.8 92.5,88.3 92.5,67"/>
+                <line fill="url(#SVGID_2_wink)" stroke="#F4EA1B" stroke-width="0" stroke-linecap="round" stroke-linejoin="round" x1="45.5" y1="17" x2="49.7" y2="17"/>
+            </g>
+            <g id="Face">
+                <path fill="#F8EC0B" d="M44.5,34.4l9.1,0c0,0,0,0,0,0c0,5-4.1,9.1-9.1,9.1s-9.1-4.1-9.1-9.1H44.5z"/>
+                <rect x="51.4" y="25.7" fill="#F8EC0B" width="13.8" height="3.4"/>
+                <ellipse fill="#F8EC0B" cx="30.8" cy="27.4" rx="6.9" ry="0.85"/>
+            </g>
+            </svg>
+        `;
 
         // Fake "hacking" sequence
         const hackingMessages = [
@@ -120,24 +240,56 @@
             if (messageIndex < hackingMessages.length) {
                 hackingText.textContent = hackingMessages[messageIndex];
                 messageIndex++;
-                setTimeout(showHackingMessage, 800); // Change message every 800ms
+                setTimeout(showHackingMessage, 800);
             } else {
                 hackingScreen.style.display = 'none';
                 popup.style.display = 'block';
                 laugh.play().catch(() => console.log("Autoplay blocked by browser"));
+                // Set initial SVG (smiling)
+                ctRobot.innerHTML = smilingSVG;
             }
         }
 
         // Start the hacking sequence
         showHackingMessage();
 
-        // Animate the CT robot head (e.g., toggle between two images or add a CSS animation)
-        const ctRobot = document.getElementById('ct-robot');
+        // Animate the CT robot head (toggle between smiling and winking)
         let isWinking = false;
         setInterval(() => {
             isWinking = !isWinking;
-            ctRobot.src = isWinking ? "ct-robot-logo-wink.png" : "ct-robot-logo.png";
+            ctRobot.innerHTML = isWinking ? winkingSVG : smilingSVG;
         }, 2000);
+
+        // Better wiggle function that runs a few times then stops
+        function wiggleButton(button) {
+            button.classList.remove('wiggle');
+            setTimeout(() => {
+                button.classList.add('wiggle');
+            }, 10);
+        }
+
+        // VCard download function
+        function downloadVCard() {
+            const vCardData = `BEGIN:VCARD
+VERSION:3.0
+FN:Dennis Cyphers
+N:Cyphers;Dennis;;;
+ORG:Cyphers Technologies
+TEL:+12532284434
+EMAIL:dennis@cypherstechnologies.com
+URL:https://cypherstechnologies.com
+END:VCARD`;
+
+            const blob = new Blob([vCardData], { type: 'text/vcard' });
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'Dennis_Cyphers.vcf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+        }
     </script>
 </body>
 </html>
