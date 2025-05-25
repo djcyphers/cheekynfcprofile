@@ -86,6 +86,10 @@
             width: 100%;
             height: auto;
         }
+        #laugh {
+            position:relative;
+            bottom: 0px;
+        }
         #hacking-screen {
             position: absolute;
             top: 0;
@@ -244,7 +248,6 @@
             } else {
                 hackingScreen.style.display = 'none';
                 popup.style.display = 'block';
-                laugh.pause().catch(() => console.log("Autoplay blocked by browser"));
                 // Set initial SVG (smiling)
                 ctRobot.innerHTML = smilingSVG;
             }
