@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CT Tech Surprise</title>
+    <title>Cyphers Technologies NFC Site</title>
     <style>
         body {
             margin: 0;
@@ -13,16 +13,18 @@
             align-items: center;
             background: #000;
             font-family: 'Courier New', monospace;
+            color: #00ff00;
         }
         .modal {
             background: #ffeb3b; /* Yellow like your CT logo */
-            border: 3px solid #00ff00; /* Neon green border for quirkiness */
+            border: 3px solid #00ff00; /* Neon green border */
             padding: 20px;
             text-align: center;
             box-shadow: 0 0 10px #00ff00;
             border-radius: 10px;
             max-width: 300px;
             position: relative;
+            display: none; /* Hidden until "hacking" is done */
         }
         .modal h1 {
             font-size: 1.5em;
@@ -41,20 +43,101 @@
             cursor: pointer;
             font-family: 'Courier New', monospace;
             margin-top: 10px;
+            transition: transform 0.1s;
+        }
+        .modal button:hover {
+            transform: scale(1.1);
         }
         .modal img {
             width: 50px;
             margin-bottom: 10px;
         }
+        #hacking-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            color: #00ff00;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-size: 1.2em;
+        }
+        #hacking-text {
+            white-space: pre-wrap;
+            text-align: center;
+        }
+        @keyframes wiggle {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+            75% { transform: rotate(-5deg); }
+            100% { transform: rotate(0deg); }
+        }
+        .wiggle {
+            animation: wiggle 0.5s infinite;
+        }
     </style>
 </head>
 <body>
-    <div class="modal" id="popup">
-        <img src="ct-robot-logo.png" alt="CT Robot Head"> <!-- Replace with your logo URL -->
-        <h1>Tech Trick Unlocked!</h1>
-        <p>Hey there, tech explorer! You’ve tapped into the Bleeding Edge. Here’s my info—don’t lose it!</p>
-        <button onclick="window.location.href='tel:+1234567890'">Call Me</button>
-        <button onclick="window.location.href='mailto:contact@ct-tech.com'">Email Me</button>
+    <div id="hacking-screen">
+        <div id="hacking-text">Accessing Mainframe...</div>
     </div>
+    <div class="modal" id="popup">
+        <img src="ct-robot-logo.png" alt="CT Robot Head" id="ct-robot">
+        <h1>Cyphers Technologies</h1>
+        <p>Don't just tap and run! We can have so much fun...</p>
+        <button onmouseover="this.innerText='Call Me... Maybe?'; this.classList.add('wiggle')"
+                onmouseout="this.innerText='Call Me'"
+                onclick="window.location.href='tel:+1234567890'">Call Me</button>
+        <button onmouseover="this.innerText='Email Me... Or Not!'; this.classList.add('wiggle')"
+                onmouseout="this.innerText='Email Me'"
+                onclick="window.location.href='mailto:contact@ct-tech.com'">Email Me</button>
+    </div>
+
+    <audio id="laugh" src="https://freesound.org/data/previews/316/316908_4939433-lq.mp3"></audio>
+
+    <script>
+        const hackingText = document.getElementById('hacking-text');
+        const hackingScreen = document.getElementById('hacking-screen');
+        const popup = document.getElementById('popup');
+        const laugh = document.getElementById('laugh');
+
+        // Fake "hacking" sequence
+        const hackingMessages = [
+            "Accessing Mainframe...",
+            "Bypassing Firewall...",
+            "Cracking Encryption...",
+            "Infiltrating System...",
+            "Access Granted!"
+        ];
+        let messageIndex = 0;
+
+        function showHackingMessage() {
+            if (messageIndex < hackingMessages.length) {
+                hackingText.textContent = hackingMessages[messageIndex];
+                messageIndex++;
+                setTimeout(showHackingMessage, 800); // Change message every 800ms
+            } else {
+                hackingScreen.style.display = 'none';
+                popup.style.display = 'block';
+                laugh.play().catch(() => console.log("Autoplay blocked by browser"));
+            }
+        }
+
+        // Start the hacking sequence
+        showHackingMessage();
+
+        // Animate the CT robot head (e.g., toggle between two images or add a CSS animation)
+        const ctRobot = document.getElementById('ct-robot');
+        let isWinking = false;
+        setInterval(() => {
+            isWinking = !isWinking;
+            ctRobot.src = isWinking ? "ct-robot-logo-wink.png" : "ct-robot-logo.png";
+        }, 2000);
+    </script>
 </body>
 </html>
