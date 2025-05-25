@@ -74,6 +74,11 @@
             box-shadow: 0 0 10px #00d4ff, 0 0 20px #ff00ff;
         }
 
+        #slogan {
+            color: #ff00ff; /* Neon pink text */
+            box-shadow: 0 0 10px #00d4ff, 0 0 20px #ff00ff;
+        }
+
         #ct-robot {
             width: 80px;
             height: auto;
@@ -144,7 +149,7 @@
         <button onmouseover="this.innerText='Add My Contact!'; wiggleButton(this)"
                 onmouseout="this.innerText='Save Contact'"
                 onclick="downloadVCard()">Save Contact</button>
-        <blockquote>We're a bleeding-edge tech consultancy and security integration firm based in Washington State.</blockquote>
+        <div id="slogan">We're a bleeding-edge tech consultancy and security integration firm based in Washington State.</div>
     </div>
 
     <audio id="laugh" src="https://cdn.freesound.org/previews/790/790646_15090270-lq.mp3" autoplay muted controls></audio>
