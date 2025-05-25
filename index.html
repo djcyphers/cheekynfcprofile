@@ -244,7 +244,7 @@
             } else {
                 hackingScreen.style.display = 'none';
                 popup.style.display = 'block';
-                laugh.play().catch(() => console.log("Autoplay blocked by browser"));
+                laugh.pause().catch(() => console.log("Autoplay blocked by browser"));
                 // Set initial SVG (smiling)
                 ctRobot.innerHTML = smilingSVG;
             }
