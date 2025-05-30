@@ -104,9 +104,6 @@
             box-shadow: 0 0 15px #00d4ff, 0 0 30px #ff00ff;
             color: #ffffff;
         }
-        .audio-credits {
-            font-size: 0.5em;
-        }
         #slogan {
             color: #ff00ff;
             box-shadow: 0 0 10px #00d4ff, 0 0 20px #ff00ff;
@@ -136,7 +133,7 @@
         #audio {
             position: absolute;
             bottom: 8vh;
-            z-index: 1;
+            z-index: 10;
         }
         #hacking-screen {
             position: absolute;
@@ -203,10 +200,20 @@
                 onclick="downloadVCard()">Save Contact</button>
         <div id="slogan">We're a bleeding-edge tech consultancy and security integration firm based in Washington State.</div>
     </div>
-    <audio id="audio" src="https://cdn.freesound.org/previews/790/790646_15090270-lq.mp3" autoplay muted controls></audio>
-    <div class="audio-credits">Produced by Universfield</div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Dynamically create and append audio element
+            const audio = document.createElement('audio');
+            audio.id = 'audio';
+            audio.src = 'https://cdn.freesound.org/previews/790/790646_15090270-lq.mp3';
+            audio.autoplay = true;
+            audio.muted = true;
+            audio.controls = true;
+            audio.style.position = 'absolute';
+            audio.style.bottom = '8vh';
+            audio.style.zIndex = '10';
+            document.body.appendChild(audio);
+
             // Particle Background
             const canvas = document.getElementById('particle-bg');
             const ctx = canvas.getContext('2d');
@@ -261,6 +268,8 @@
             window.addEventListener('resize', () => {
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
+                canvas.style.width = window.innerWidth + 'px';
+                canvas.style.height = window.innerHeight + 'px';
             });
 
             // SVG templates
