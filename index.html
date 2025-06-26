@@ -189,15 +189,27 @@
         <h1>Cyphers Technologies</h1>
         <p>Don't just tap and run! 🏃‍♀️‍➡️</p>
         <p>We can have so much fun! 🥳</p>
-        <button onmouseover="this.innerText='Call Me... Maybe?'; wiggleButton(this)"
-                onmouseout="this.innerText='Call Me'"
-                onclick="window.location.href='tel:+12532284434'">Call Me</button>
-        <button onmouseover="this.innerText='Email Me... Or Not!'; wiggleButton(this)"
-                onmouseout="this.innerText='Email Me'"
-                onclick="window.location.href='mailto:dj@djcyphers.com'">Email Me</button>
-        <button onmouseover="this.innerText='Add My Contact!'; wiggleButton(this)"
-                onmouseout="this.innerText='Save Contact'"
-                onclick="downloadVCard()">Save Contact</button>
+    <button
+        onmouseover="this.innerText='Call Me... Maybe?'; wiggleButton(this)"
+        onmouseout="this.innerText='Call Me'"
+        onclick="window.location.href='tel:+12532284434'">
+        Call Me
+    </button>
+    
+    <button
+        onmouseover="this.innerText='Email Me... Or Not!'; wiggleButton(this)"
+        onmouseout="this.innerText='Email Me'"
+        onclick="window.location.href='mailto:dj@djcyphers.com'">
+        Email Me
+    </button>
+    
+    <a href="Dennis_Cyphers.vcf" download>
+        <button
+            onmouseover="this.innerText='Add My Contact!'; wiggleButton(this)"
+            onmouseout="this.innerText='Save Contact'">
+            Save Contact
+        </button>
+    </a>
         <div id="slogan">We're a bleeding-edge tech consultancy and security integration firm based in Washington State.</div>
     </div>
     <script>
