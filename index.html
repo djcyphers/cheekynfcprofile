@@ -244,6 +244,11 @@
             audio.controls = true;
             audio.style.zIndex = '10';
             document.body.appendChild(audio);
+            // Add credit below audio
+            const credit = document.createElement('div');
+            credit.id = 'audio-credit';
+            credit.innerHTML = `🎵 <em>"Neon Pulse"</em> by <strong>Universfield</strong>`;
+            document.body.appendChild(credit);
 
             // Particle Background
             const canvas = document.getElementById('particle-bg');
